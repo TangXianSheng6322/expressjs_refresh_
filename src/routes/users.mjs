@@ -12,6 +12,8 @@ import { mockUsers } from "../utils/_constants.mjs";
 import { resolveUserById, loggingMiddlewear } from "../utils/_middleware.mjs";
 //db schemas
 import { User } from "../mongoose/schemas/user.mjs";
+//utils
+import { hashPassword } from "../utils/_helpers.mjs";
 
 const router = Router();
 
@@ -77,6 +79,9 @@ router.post(
 
     const data = matchedData(req);
     // const newUser = { id: mockUsers[mockUsers.length - 1].id + 1, ...data };
+    console.log(data);
+    data.password = hashPassword(data.password);
+    console.log(data);
     const newUser = new User(data);
     try {
       const savedUser = await newUser.save();
