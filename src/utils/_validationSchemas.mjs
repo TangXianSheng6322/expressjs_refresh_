@@ -8,4 +8,5 @@ export const createValidationSchemas = {
     },
   },
   displayName: { notEmpty: true },
+  password: { notEmpty: true },
 };

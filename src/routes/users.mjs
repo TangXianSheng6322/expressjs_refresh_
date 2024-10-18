@@ -10,6 +10,8 @@ import { createValidationSchemas } from "../utils/_validationSchemas.mjs";
 import { mockUsers } from "../utils/_constants.mjs";
 //middleware
 import { resolveUserById, loggingMiddlewear } from "../utils/_middleware.mjs";
+//db schemas
+import { User } from "../mongoose/schemas/user.mjs";
 
 const router = Router();
 
@@ -67,16 +69,24 @@ router.post(
   //   body("displayName").notEmpty(),
   // ],
   checkSchema(createValidationSchemas),
-  (req, res) => {
+  async (req, res) => {
     console.log(req.body);
     if (!validationResult(req).isEmpty()) {
       return res.status(400).send({ errors: validationResult(req).array() });
     }
 
     const data = matchedData(req);
-    const newUser = { id: mockUsers[mockUsers.length - 1].id + 1, ...data };
-    mockUsers.push(newUser);
-    return res.status(201).send(newUser);
+    // const newUser = { id: mockUsers[mockUsers.length - 1].id + 1, ...data };
+    const newUser = new User(data);
+    try {
+      const savedUser = await newUser.save();
+      return res.status(201).send(savedUser);
+    } catch (err) {
+      console.log(err);
+      return res.sendStatus(400);
+    }
+    // mockUsers.push(newUser);
+    // return res.status(201).send(newUser);
   }
 );
 
