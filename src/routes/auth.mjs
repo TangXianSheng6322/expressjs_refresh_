@@ -73,13 +73,16 @@ router.post("/api/auth/logout", (req, res) => {
 });
 router.get(
   "/api/auth/google",
-  passport.authenticate("google", { scope: ["email"] }),
+  passport.authenticate("google", { scope: ["profile", "email"] }),
   (req, res) => {}
 );
 router.get(
   "/api/auth/google/home",
-  checkSchema(createGoogleValidationSchema),
-  passport.authenticate("google"),
+  // checkSchema(createGoogleValidationSchema),
+  passport.authenticate("google", {
+    successRedirect: "/api/auth/status",
+    failureRedirect: "/api/auth",
+  }),
   (req, res) => {
     req.sendStatus(201);
   }

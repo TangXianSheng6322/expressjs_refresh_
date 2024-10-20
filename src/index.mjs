@@ -6,7 +6,7 @@ import "dotenv/config";
 import cookieParser from "cookie-parser";
 import session from "express-session";
 import passport from "passport";
-import "./strategies/local_strategy.mjs";
+// import "./strategies/local_strategy.mjs";
 import "./strategies/google_strategy.mjs";
 import mongoose from "mongoose";
 import MongoStore from "connect-mongo";
