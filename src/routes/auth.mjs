@@ -3,6 +3,15 @@ import passport from "passport";
 
 //constants
 import { mockUsers } from "../utils/_constants.mjs";
+//middleware
+import {
+  query,
+  validationResult,
+  checkSchema,
+  matchedData,
+} from "express-validator";
+//utils
+import { createGoogleValidationSchema } from "../utils/_validationSchemas.mjs";
 
 const router = Router();
 
@@ -62,5 +71,18 @@ router.post("/api/auth/logout", (req, res) => {
     res.sendStatus(200);
   });
 });
+router.get(
+  "/api/auth/google",
+  passport.authenticate("google", { scope: ["email"] }),
+  (req, res) => {}
+);
+router.get(
+  "/api/auth/google/home",
+  checkSchema(createGoogleValidationSchema),
+  passport.authenticate("google"),
+  (req, res) => {
+    req.sendStatus(201);
+  }
+);
 
 export default router;
