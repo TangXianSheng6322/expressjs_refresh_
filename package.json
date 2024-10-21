@@ -24,10 +24,14 @@
     "passport-local": "^1.0.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.25.8",
+    "@babel/node": "^7.25.7",
+    "@babel/preset-env": "^7.25.8",
     "@types/cookie-parser": "^1.4.7",
     "@types/express": "^5.0.0",
     "@types/express-session": "^1.18.0",
     "@types/passport-local": "^1.0.38",
+    "jest": "^29.7.0",
     "nodemon": "^3.1.7"
   },
   "type": "module"
