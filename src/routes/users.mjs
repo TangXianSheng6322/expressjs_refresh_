@@ -14,6 +14,8 @@ import { resolveUserById, loggingMiddlewear } from "../utils/_middleware.mjs";
 import { User } from "../mongoose/schemas/user.mjs";
 //utils
 import { hashPassword } from "../utils/_helpers.mjs";
+//handlers
+import { getUserByIdHandler } from "../handlers/users.mjs";
 
 const router = Router();
 
@@ -51,12 +53,7 @@ router.get(
   }
 );
 
-router.get("/api/user/:id", resolveUserById, (req, res) => {
-  const { findIndex } = req;
-  const findUser = mockUsers[findIndex];
-  if (!findUser) return res.sendStatus(404);
-  return res.send(findUser);
-});
+router.get("/api/user/:id", resolveUserById, getUserByIdHandler);
 
 //POST routes
 router.post(
