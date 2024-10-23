@@ -15,7 +15,7 @@ import { User } from "../mongoose/schemas/user.mjs";
 //utils
 import { hashPassword } from "../utils/_helpers.mjs";
 //handlers
-import { getUserByIdHandler } from "../handlers/users.mjs";
+import { createUserHandler, getUserByIdHandler } from "../handlers/users.mjs";
 
 const router = Router();
 
@@ -69,28 +69,7 @@ router.post(
   //   body("displayName").notEmpty(),
   // ],
   checkSchema(createValidationSchemas),
-  async (req, res) => {
-    console.log(req.body);
-    if (!validationResult(req).isEmpty()) {
-      return res.status(400).send({ errors: validationResult(req).array() });
-    }
-
-    const data = matchedData(req);
-    // const newUser = { id: mockUsers[mockUsers.length - 1].id + 1, ...data };
-    console.log(data);
-    data.password = hashPassword(data.password);
-    console.log(data);
-    const newUser = new User(data);
-    try {
-      const savedUser = await newUser.save();
-      return res.status(201).send(savedUser);
-    } catch (err) {
-      console.log(err);
-      return res.sendStatus(400);
-    }
-    // mockUsers.push(newUser);
-    // return res.status(201).send(newUser);
-  }
+  createUserHandler
 );
 
 //PUT PATCH routes
