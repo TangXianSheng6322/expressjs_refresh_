@@ -27,7 +27,7 @@ export const createUserHandler = async (req, res) => {
     const savedUser = await newUser.save();
     return res.status(201).send(savedUser);
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     return res.sendStatus(400);
   }
   // mockUsers.push(newUser);

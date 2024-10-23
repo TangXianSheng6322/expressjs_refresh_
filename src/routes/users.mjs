@@ -1,19 +1,10 @@
 import { Router } from "express";
-import {
-  query,
-  validationResult,
-  checkSchema,
-  matchedData,
-} from "express-validator";
+import { query, validationResult, checkSchema } from "express-validator";
 import { createValidationSchemas } from "../utils/_validationSchemas.mjs";
 //constants
 import { mockUsers } from "../utils/_constants.mjs";
 //middleware
 import { resolveUserById, loggingMiddlewear } from "../utils/_middleware.mjs";
-//db schemas
-import { User } from "../mongoose/schemas/user.mjs";
-//utils
-import { hashPassword } from "../utils/_helpers.mjs";
 //handlers
 import { createUserHandler, getUserByIdHandler } from "../handlers/users.mjs";
 

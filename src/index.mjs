@@ -1,4 +1,4 @@
-import express, { response } from "express";
+import express from "express";
 //routes
 import routes from "./routes/_index.mjs";
 //middlewear
