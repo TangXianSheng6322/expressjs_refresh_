@@ -1,4 +1,6 @@
 import express from "express";
+import "./strategies/local_strategy.mjs";
+// import "./strategies/google_strategy.mjs";x
 //routes
 import routes from "./routes/_index.mjs";
 //middlewear
@@ -29,7 +31,7 @@ export function createApp() {
   // app.use(resolveUserById);
   // app.use(loggingMiddlewear);
   //had to remove this for app to work again
-  //Oh, it's used to use it globally, so no need to code app.use
+  //Oh, it's used globally, so no need to code app.use
 
   app.get("/", (req, res) => {
     req.session.visited = true;

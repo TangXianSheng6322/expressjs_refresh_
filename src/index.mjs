@@ -1,5 +1,3 @@
-// import "./strategies/local_strategy.mjs";
-import "./strategies/google_strategy.mjs";
 import { createApp } from "./createApp.mjs";
 import mongoose from "mongoose";
 import "dotenv/config";
