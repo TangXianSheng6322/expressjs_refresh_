@@ -23,10 +23,24 @@ describe("create user and login", () => {
   it("should log the user in", async () => {
     const response = await request(app)
       .post("/api/auth")
-      .send({ userName: "Pupsik", password: "Meow" });
+      .send({ userName: "Pupsik", password: "Meow" })
+      .then((res) => {
+        console.log(res.headers);
+        return request(app)
+          .get("/api/auth/status")
+          .set("Cookie", res.headers["set-cookie"]);
+      });
 
     expect(response.statusCode).toBe(200);
+    expect(response.body.userName).toBe("Pupsik");
   });
+
+  //   //THIS IS NOT GOING TO WORK BECAUSE, PREVIOUS TEST DOENT PASS THE COOKIE
+  //   it("should visit /api/auth/status and return authenticated user", async () => {
+  //     const response = await request(app).get("/api/auth/status");
+  //     console.log(response.headers);
+  //     expect(response.statusCode).toBe(200);
+  //   });
 
   afterAll(async () => {
     await mongoose.connection.dropDatabase();
